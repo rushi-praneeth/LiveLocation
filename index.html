@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Location Tracker</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Leaflet.js CDN -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_forward" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=menu" />
+</head>
+<body>
+  <div class="container">
+    <div class="s-container">
+      <div class="navbar">
+        <div class="nav-left">
+          <button class="logo-button" onclick="logo()">
+            <img src="LLT.png" alt="Logo" class="logo">
+          </button>
+        </div>
+        <div class="nav-right">
+          <button id="toggle-button" onclick="toggleMenu()">
+            <span class="material-symbols-outlined">menu</span>
+          </button>
+          <div class="dropdowncontent" id="dropdownmenu">
+            <a href="homepage.html">HOME</a>
+            <a href="index.html">LIVE LOCATION</a>
+          </div>
+        </div>
+      </div>
+      <h2>Live Location Tracker</h2>
+      <div id="map"></div>
+      <button id="locationButton" onclick="enableLocation()">Turn on Location</button>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    let map = L.map('map').setView([0, 0], 2);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    let marker = L.marker([0, 0]).addTo(map);
+
+    function updateLocation(position) {
+      const { latitude, longitude } = position.coords;
+      console.log("Latitude:", latitude, "Longitude:", longitude); // Log coordinates
+      map.setView([latitude, longitude], 15);  
+      marker.setLatLng([latitude, longitude]); 
+    }
+
+    function enableLocation() {
+      if (navigator.geolocation) {
+        // Using watchPosition for continuous location tracking
+        navigator.geolocation.watchPosition(updateLocation, (error) => {
+          console.error("Error getting location:", error);
+          alert("Error: " + error.message); 
+        });
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    }
+
+    // TOGGLE MENU
+    function toggleMenu() {
+      const menuItems = document.getElementById('dropdownmenu');
+      const currentDisplay = window.getComputedStyle(menuItems).display;
+
+      if (currentDisplay === 'none') {
+        menuItems.style.display = 'block';  // Show the menu
+      } else {
+        menuItems.style.display = 'none';   // Hide the menu
+      }
+    }
+
+    function logo() {
+      const body = document.body;
+      const span = document.querySelectorAll('span');
+      const heading = document.querySelectorAll('h1,h2,h3,h4,h5,h6');
+      if (body.style.backgroundColor === 'white') {
+        body.style.backgroundColor = '#000220';
+        span.forEach(span => span.style.color = 'white');
+        heading.forEach(heading => heading.style.color = 'white');
+      } else {
+        body.style.backgroundColor = 'white';
+        span.forEach(span => span.style.color = 'black');
+        heading.forEach(heading => heading.style.color = 'black');
+      }
+      body.style.transition = 'background-color 0.5s, color 0.5s';
+    }
+  </script>
+</body>
+</html>

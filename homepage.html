@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_forward" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=menu" />
+</head>
+<body>
+    <div class="loading-screen">
+        <div class="namaste-container">
+            <span class="letter">N</span>
+            <span class="letter">A</span>
+            <span class="letter">M</span>
+            <span class="letter">A</span>
+            <span class="letter">S</span>
+            <span class="letter">T</span>
+            <span class="letter">E</span>
+        </div>
+    </div>
+    <div class="container" style="display: none;">
+         <div class="s-container">
+        <div class="navbar">
+            <div class="nav-left">
+                <button class="logo-button" onclick="logo()">
+                    <img src="LLT.png" alt="Logo" class="logo">
+                </button>
+            </div>
+            <div class="nav-right">
+                <button id="toggle-button" onclick="toggleMenu()">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                <div class="dropdowncontent" id="dropdownmenu">
+                    <a href="homepage.html">HOME</a>
+                    <a href="index.html">LIVE LOCATION</a>
+                </div>
+            </div>
+        </div>
+        <div class="main">
+            <h2>Want to know your location <span class="material-symbols-outlined">arrow_forward</span></h2>
+            <a href="index.html" class="click">Click Here</a>
+        </div>
+    </div>
+    </div>
+
+<script>
+    // LOADING SCREEN
+setTimeout(function() {
+document.querySelector('.loading-screen').style.opacity = '0'; 
+setTimeout(() => {
+      document.querySelector('.loading-screen').style.display = 'none'; 
+      document.querySelector('.container').style.display = 'block'; 
+  }, 0); 
+}, 3000);
+// TOGGLE MENU
+function toggleMenu() {
+  const menuItems = document.getElementById('dropdownmenu');
+  const currentDisplay = window.getComputedStyle(menuItems).display;
+
+  if (currentDisplay === 'none') {
+      menuItems.style.display = 'block';  // Show the menu
+      menuItems.style.display = 'block';
+  } else {
+      menuItems.style.display = 'none';   // Hide the menu
+  }
+} 
+function logo()
+{
+    const body = document.body;
+    const span = document.querySelectorAll('span');
+    const heading = document.querySelectorAll('h1,h2,h3,h4,h5,h6');
+    if(body.style.backgroundColor === 'white')
+{
+    body.style.backgroundColor = '#000220';
+    span.forEach(span => span.style.color = 'white');
+    heading.forEach(heading => heading.style.color = 'white');
+}
+else
+{
+    body.style.backgroundColor = 'white';
+    span.forEach(span => span.style.color = 'black');
+    heading.forEach(heading => heading.style.color = 'black');
+}
+body.style.transition = 'background-color 0.5s, color 0.5s';
+}
+
+    </script>
+</body>
+</html>
